@@ -1,8 +1,8 @@
-package com.learning.task_manager.controller.auth;
+package com.learning.task_manager.controller;
 
 import com.learning.task_manager.dto.LoginDTO;
 import com.learning.task_manager.dto.RegisterDTO;
-import com.learning.task_manager.service.UserServiceImpl;
+import com.learning.task_manager.service.impl.AuthServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/auth")
 public class AuthController {
 
-    private final UserServiceImpl userService;
+    private final AuthServiceImpl userService;
 
     @Autowired
-    public AuthController(UserServiceImpl userService) {
+    public AuthController(AuthServiceImpl userService) {
         this.userService = userService;
     }
 

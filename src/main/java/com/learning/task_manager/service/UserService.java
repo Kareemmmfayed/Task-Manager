@@ -1,11 +1,15 @@
 package com.learning.task_manager.service;
 
-import com.learning.task_manager.dto.LoginDTO;
-import com.learning.task_manager.dto.RegisterDTO;
 import com.learning.task_manager.entity.AppUser;
 
-public interface UserService {
-    public AppUser registerUser(RegisterDTO registerDTO);
+import java.util.List;
+import java.util.Optional;
 
-    public boolean loginUser(LoginDTO loginDTO);
+public interface UserService {
+
+    public List<AppUser> getUsers();
+
+    public Optional<AppUser> getOneUser(Long theId);
+
+    public void deleteUser(Long theId);
 }
