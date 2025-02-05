@@ -9,6 +9,8 @@ import java.util.List;
 @Table(name = "app_user")
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class AppUser {
 
