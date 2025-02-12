@@ -1,16 +1,20 @@
 package com.learning.task_manager.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "task")
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class Task {
 
@@ -32,7 +36,7 @@ public class Task {
     @Enumerated(EnumType.STRING)
     private TaskCategory category;
 
-    private LocalDateTime deadline;
+    private LocalDate deadline;
 
     @Column(updatable = false)
     @CreationTimestamp
@@ -43,5 +47,6 @@ public class Task {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
+    @JsonBackReference
     private AppUser appUser;
 }

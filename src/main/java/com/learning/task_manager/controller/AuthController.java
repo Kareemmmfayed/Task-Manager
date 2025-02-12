@@ -2,8 +2,9 @@ package com.learning.task_manager.controller;
 
 import com.learning.task_manager.dto.LoginDTO;
 import com.learning.task_manager.dto.RegisterDTO;
+import com.learning.task_manager.entity.AppUser;
 import com.learning.task_manager.service.impl.AuthServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,22 +14,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/auth")
+@RequiredArgsConstructor
 public class AuthController {
 
     private final AuthServiceImpl userService;
 
-    @Autowired
-    public AuthController(AuthServiceImpl userService) {
-        this.userService = userService;
-    }
-
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody RegisterDTO registerDTO) {
+    public ResponseEntity<AppUser> register(@RequestBody RegisterDTO registerDTO) {
         return ResponseEntity.ok(userService.registerUser(registerDTO));
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginDTO loginDTO) {
+    public ResponseEntity<String> login(@RequestBody LoginDTO loginDTO) {
         if(userService.loginUser(loginDTO)) {
             return ResponseEntity.ok("User is found");
         } else {

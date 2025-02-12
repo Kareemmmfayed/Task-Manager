@@ -9,7 +9,7 @@ public interface UserService {
 
     public List<AppUser> getUsers();
 
-    public Optional<AppUser> getOneUser(Long theId);
+    public AppUser getOneUser(Long theId);
 
     public void deleteUser(Long theId);
 }
