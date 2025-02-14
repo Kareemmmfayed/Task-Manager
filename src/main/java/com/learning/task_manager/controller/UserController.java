@@ -1,0 +1,38 @@
+package com.learning.task_manager.controller;
+
+import com.learning.task_manager.entity.AppUser;
+import com.learning.task_manager.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/users")
+public class UserController {
+
+    private final UserService userService;
+
+    @Autowired
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
+
+    @GetMapping
+    public ResponseEntity<List<AppUser>> getAll() {
+        return ResponseEntity.ok(userService.getUsers());
+    }
+
+    @GetMapping("/{theId}")
+    public ResponseEntity<?> getOne(@PathVariable Long theId) {
+            return ResponseEntity.ok(userService.getOneUser(theId));
+    }
+
+    @DeleteMapping("/{theId}")
+    public ResponseEntity<String> deleteOne(@PathVariable Long theId) {
+            userService.deleteUser(theId);
+            return ResponseEntity.ok("Deleted successfully!!");
+    }
+}
