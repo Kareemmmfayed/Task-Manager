@@ -7,19 +7,23 @@ import com.learning.task_manager.repository.TaskRepository;
 import com.learning.task_manager.repository.UserRepository;
 import com.learning.task_manager.service.TaskService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class TaskServiceImpl implements TaskService {
 
     private final TaskRepository taskRepository;
     private final UserRepository userRepository;
 
     @Override
+    @Transactional
     public Task addTask(TaskRequestDTO taskDTO) {
         return taskRepository.save(Task.builder()
                 .title(taskDTO.title())
@@ -46,14 +50,27 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
+    @Transactional
     public Task updateTask(long taskId, TaskRequestDTO taskDTO) {
-        return TaskRepository.save(getSingleTaskById(taskId).builder()
-                .title(taskDTO.title())
-                .description(taskDTO.description())
-                .status(taskDTO.status())
-                .priority(taskDTO.priority())
-                .category(taskDTO.category())
-                .build());
+        Task task = getSingleTaskById(taskDTO.userId());
+        System.out.println(taskId);
+        task.setId(taskId);
+        task.setTitle(taskDTO.title());
+        task.setDescription(taskDTO.description());
+        task.setStatus(taskDTO.status());
+        task.setPriority(taskDTO.priority());
+        task.setCategory(taskDTO.category());
+        task.setDeadline(taskDTO.deadline());
+        task.setAppUser(getSingleUserById(taskDTO.userId()));
+        return taskRepository.save(task);
+    }
+
+    @Override
+    @Transactional
+    public void deleteTask(long taskId) {
+        Task task = getSingleTaskById(taskId);
+        log.info(task.getTitle());
+        taskRepository.delete(getSingleTaskById(taskId));
     }
 
     public AppUser getSingleUserById(long userId) {

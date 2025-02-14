@@ -6,6 +6,7 @@ import com.learning.task_manager.entity.Task;
 import com.learning.task_manager.service.TaskService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -35,5 +36,11 @@ public class TaskController {
     @PutMapping("/{taskId}")
     public ResponseEntity<Task> updateTask(@PathVariable long taskId, @RequestBody TaskRequestDTO taskRequestDTO) {
         return ResponseEntity.ok(taskService.updateTask(taskId, taskRequestDTO));
+    }
+
+    @DeleteMapping("/{taskId}")
+    public ResponseEntity<Void> deleteTask(@PathVariable long taskId) {
+        taskService.deleteTask(taskId);
+        return ResponseEntity.noContent().build();
     }
 }
