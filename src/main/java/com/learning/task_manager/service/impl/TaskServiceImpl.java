@@ -67,10 +67,11 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     @Transactional
-    public void deleteTask(long taskId) {
+    public String deleteTask(long taskId) {
         Task task = getSingleTaskById(taskId);
-        log.info(task.getTitle());
-        taskRepository.delete(getSingleTaskById(taskId));
+        task.setAppUser(null);
+        taskRepository.delete(task);
+        return "Task deleted successfully!";
     }
 
     public AppUser getSingleUserById(long userId) {
