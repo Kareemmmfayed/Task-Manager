@@ -3,6 +3,7 @@ package com.learning.task_manager.service.impl;
 import com.learning.task_manager.dto.TaskRequestDTO;
 import com.learning.task_manager.dto.TaskResponseDTO;
 import com.learning.task_manager.entity.*;
+import com.learning.task_manager.exception.ResourceNotFoundException;
 import com.learning.task_manager.repository.TaskRepository;
 import com.learning.task_manager.repository.UserRepository;
 import com.learning.task_manager.service.TaskService;
@@ -46,14 +47,13 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public Task getTask(long taskId) {
-        return taskRepository.findById(taskId).orElseThrow(() -> new RuntimeException("Task with id [" + taskId + "] not found"));
+        return taskRepository.findById(taskId).orElseThrow(() -> new ResourceNotFoundException("Task with id [" + taskId + "] not found"));
     }
 
     @Override
     @Transactional
     public Task updateTask(long taskId, TaskRequestDTO taskDTO) {
-        Task task = getSingleTaskById(taskDTO.userId());
-        System.out.println(taskId);
+        Task task = getSingleTaskById(taskId);
         task.setId(taskId);
         task.setTitle(taskDTO.title());
         task.setDescription(taskDTO.description());

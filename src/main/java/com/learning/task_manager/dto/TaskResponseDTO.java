@@ -7,8 +7,17 @@ import com.learning.task_manager.entity.TaskStatus;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-public record TaskResponseDTO(String title, String description, TaskStatus status, TaskPriority priority, TaskCategory category,
-                              LocalDate deadline, LocalDateTime createdAt, LocalDateTime updatedAt, Long userId) {
+public record TaskResponseDTO(
+        String title,
+        String description,
+        TaskStatus status,
+        TaskPriority priority,
+        TaskCategory category,
+        LocalDate deadline,
+        LocalDateTime createdAt,
+        LocalDateTime updatedAt,
+        Long userId
+) {
 
     public static TaskResponseDTO makeTaskOutOfDTO(com.learning.task_manager.entity.Task task) {
         return new TaskResponseDTO(

@@ -1,5 +1,6 @@
 package com.learning.task_manager.controller;
 
+import com.learning.task_manager.dto.UserResponseDTO;
 import com.learning.task_manager.entity.AppUser;
 import com.learning.task_manager.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -18,12 +19,12 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping
-    public ResponseEntity<List<AppUser>> getAll() {
+    public ResponseEntity<List<UserResponseDTO>> getAll() {
         return ResponseEntity.ok(userService.getUsers());
     }
 
     @GetMapping("/{theId}")
-    public ResponseEntity<?> getOne(@PathVariable Long theId) {
+    public ResponseEntity<UserResponseDTO> getOne(@PathVariable Long theId) {
             return ResponseEntity.ok(userService.getOneUser(theId));
     }
 
