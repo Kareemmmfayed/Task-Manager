@@ -1,13 +1,13 @@
 package com.learning.task_manager;
 
+import io.jsonwebtoken.io.Decoders;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import java.util.Arrays;
 
 @SpringBootApplication
 public class TaskManagerApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(TaskManagerApplication.class, args);
-	}
-
+	public static void main(String[] args) { SpringApplication.run(TaskManagerApplication.class, args); }
 }

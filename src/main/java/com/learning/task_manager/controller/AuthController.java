@@ -1,9 +1,10 @@
 package com.learning.task_manager.controller;
 
+import com.learning.task_manager.dto.AuthenticationResponseDTO;
 import com.learning.task_manager.dto.LoginDTO;
 import com.learning.task_manager.dto.RegisterDTO;
 import com.learning.task_manager.entity.AppUser;
-import com.learning.task_manager.service.impl.AuthServiceImpl;
+import com.learning.task_manager.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,19 +18,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class AuthController {
 
-    private final AuthServiceImpl userService;
+    private final AuthService authService;
 
     @PostMapping("/register")
-    public ResponseEntity<AppUser> register(@RequestBody RegisterDTO registerDTO) {
-        return ResponseEntity.ok(userService.registerUser(registerDTO));
+    public ResponseEntity<AuthenticationResponseDTO> register(@RequestBody RegisterDTO registerDTO) {
+        return ResponseEntity.ok(authService.registerUser(registerDTO));
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginDTO loginDTO) {
-        if(userService.loginUser(loginDTO)) {
-            return ResponseEntity.ok("User is found");
-        } else {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("User not found!!");
-        }
+    public ResponseEntity<AuthenticationResponseDTO> login(@RequestBody LoginDTO loginDTO) {
+            return ResponseEntity.ok(authService.loginUser(loginDTO));
     }
 }
